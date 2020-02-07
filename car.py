@@ -3,4 +3,18 @@ Title: Autonomous car
 Authors: Abrar Zahin, Christie Leung
 Date: 2020/02/05
 '''
-# can't code in GPIO pins without the raspberry pi (because pi has pins, laptop doesn't)
+import RPi.GPIO as gpio
+import time
+
+gpio.setmode(gpio.BOARD)
+
+##-- setting up wheels
+flWheel = 11 # front left wheel
+frWheel = 12 # front right wheel
+blWheel = 15 # back left wheel
+brWheel = 16 # back right wheel
+
+gpio.setup(flWheel, gpio.OUT)
+gpio.setup(frWheel, gpio.OUT)
+gpio.setup(blWheel, gpio.OUT)
+gpio.setup(brWheel, gpio.OUT)
