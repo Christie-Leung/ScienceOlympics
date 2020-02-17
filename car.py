@@ -72,9 +72,9 @@ def rightPivot():
 def distance(speed):
     gpio.output(trig, False)
 
-    while gpio.input(echo) = 0:
+    while gpio.input(echo) == 0:
         noSig = time.time()
-    while gpio.input(echo) = 1:
+    while gpio.input(echo) == 1:
         sig = time.time
     
     gpio.cleanup()
@@ -133,6 +133,8 @@ button = 7 # button input pin
 lineL = 29 # left line sensor
 lineM = 31 # middle line sensor
 lineR = 33 # right line sensor
+
+init()
 
 # wheel speed control
 fl = gpio.PWM(flWheel, 100)
