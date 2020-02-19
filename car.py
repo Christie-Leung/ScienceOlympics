@@ -29,44 +29,18 @@ def init(): # initializing method
 
 ##--== Motor Control code ==--##
 def forward():
-    gpio.output(flWheel, True)
-    gpio.output(frWheel, False)
-    gpio.output(blWheel, True)
-    gpio.output(brWheel, False)
+    gpio.output(flWheel, gpio.HIGH) # forward is high
+    gpio.output(blWheel, gpio.LOW) # backward is low
+    gpio.output(frWheel, gpio.HIGH)
+    gpio.output(brWheel, gpio.LOW)
 
 def leftTurnFront():
-    gpio.output(frWheel, False)
-    gpio.output(brWheel, False)
+    gpio.output(frWheel, gpio.HIGH)
+    gpio.output(brWheel, gpio.LOW)
 
 def rightTurnFront():
-    gpio.output(flWheel, True)
-    gpio.output(blWheel, True)
-
-def backward():
-    gpio.output(flWheel, False)
-    gpio.output(frWheel, True)
-    gpio.output(blWheel, False)
-    gpio.output(brWheel, True)
-
-def leftTurnBack():
-    gpio.output(frWheel, True)
-    gpio.output(brWheel, True)
-
-def rightTurnBack():
-    gpio.output(flWheel, False)
-    gpio.output(blWheel, False)
-
-def leftPivot():
-    gpio.output(flWheel, False)
-    gpio.output(frWheel, False)
-    gpio.output(blWheel, False)
-    gpio.output(brWheel, False)
-
-def rightPivot():
-    gpio.output(flWheel, True)
-    gpio.output(frWheel, True)
-    gpio.output(blWheel, True)
-    gpio.output(brWheel, True)
+    gpio.output(flWheel, gpio.HIGH)
+    gpio.output(blWheel, gpio.LOW)
 
 ##--== Distance Sensor code ==--##
 def distance(speed):
@@ -123,10 +97,10 @@ def auto(m):
 
 ##--== Variables ==--##
 # GPIO pins
-flWheel = 11 # front left wheel
-frWheel = 12 # front right wheel
-blWheel = 15 # back left wheel
-brWheel = 16 # back right wheel
+flWheel = 11 # forward left wheels
+frWheel = 12 # forward right wheels
+blWheel = 15 # backward left wheels
+brWheel = 16 # backward right wheels
 trig = 38 # trig pin in the distance sensor
 echo = 40 # echo pin in the distance sensor
 button = 7 # button input pin
