@@ -19,7 +19,7 @@ def init(): # initializing method
     gpio.setup(echo, gpio.IN)
 
     ##-- button
-    gpio.setup(button, gpio.IN)
+    gpio.setup(button, gpio.IN, pull_up_down = gpio.PUD_DOWN)
 
     ##== line sensor
     gpio.setup(lineL, gpio.IN)
@@ -70,8 +70,8 @@ def distance(speed):
 def mode(m):
     if gpio.input(button) == True:
         m += 1
-    if m > 1:
-        m = 0
+        if m > 1:
+            m = 0
     return m
 
 ##--== Line Sensor code ==--##
