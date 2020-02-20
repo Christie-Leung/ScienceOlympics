@@ -4,7 +4,6 @@ Authors: Abrar Zahin, Christie Leung
 Date: 2020/02/05
 '''
 import RPi.GPIO as gpio
-import time
 
 def init(): # initializing method
     gpio.setmode(gpio.BOARD)
@@ -77,21 +76,16 @@ def mode(m):
 
 ##--== Line Sensor code ==--##
 def auto(m):
-    if gpio.input(lineM) == 0:
+    if gpio.input(lineL) == 0 and gpio.input(lineM) == 0 and gpio.input(lineR) == 0:
         forward()
-        time.sleep(0.5)
-        if gpio.input(lineM) == 0:
+        if gpio.input(lineL) == 0 and gpio.input(lineM) == 0 and gpio.input(lineR) == 0:
             m = 0
-
     if gpio.input(lineL) == 0 and gpio.input(lineM) == 1 and gpio.input(lineR) == 0:
         forward()
-
-    if gpio.input(lineL) == 1 and gpio.input(lineM) == 1 and gpio.input(lineR) == 0:
+    if gpio.input(lineL) == 1 and gpio.input(lineR) == 0:
         leftTurnFront()
-
-    if gpio.input(lineL) == 0 and gpio.input(lineM) == 1 and gpio.input(lineR) == 1:
+    if gpio.input(lineL) == 0 and gpio.input(lineR) == 1:
         rightTurnFront()
-
     if gpio.input(lineL) == 1 and gpio.input(lineM) == 1 and gpio.input(lineR) == 1:
         m = 0
 
@@ -116,7 +110,6 @@ fr = gpio.PWM(frWheel, 100)
 bl = gpio.PWM(blWheel, 100)
 br = gpio.PWM(brWheel, 100)
 
-tf = 0.03 # time frame in seconds
 m = 0 # m for mode 0 is nothing 1 is auto
 speed = 0 # speed in % of the max speed
 
@@ -142,5 +135,4 @@ while True:
         bl.ChangeDutyCycle(speed)
         br.ChangeDutyCycle(speed)
         auto(m)
-    time.sleep(tf)
     gpio.cleanup()
