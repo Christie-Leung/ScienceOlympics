@@ -123,22 +123,25 @@ br.start(speed)
 '''
 ##--== Running the code ==--##
 while True:
-    init()
-    mode(m)
-    if m == 0:
-        speed = 0
-        fl.ChangeDutyCycle(speed)
-        fr.ChangeDutyCycle(speed)
-        bl.ChangeDutyCycle(speed)
-        br.ChangeDutyCycle(speed)
-    else:
-        speed = distance(speed)
-        fl.ChangeDutyCycle(speed)
-        fr.ChangeDutyCycle(speed)
-        bl.ChangeDutyCycle(speed)
-        br.ChangeDutyCycle(speed)
-        auto(m)
-    gpio.cleanup()
+    try:
+        init()
+        mode(m)
+        if m == 0:
+            speed = 0
+            fl.ChangeDutyCycle(speed)
+            fr.ChangeDutyCycle(speed)
+            bl.ChangeDutyCycle(speed)
+            br.ChangeDutyCycle(speed)
+        else:
+            speed = distance(speed)
+            fl.ChangeDutyCycle(speed)
+            fr.ChangeDutyCycle(speed)
+            bl.ChangeDutyCycle(speed)
+            br.ChangeDutyCycle(speed)
+            auto(m)
+        gpio.cleanup()
+    finally:
+        gpio.cleanup()
     '''
 
 while True:
