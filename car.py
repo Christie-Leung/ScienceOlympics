@@ -4,6 +4,7 @@ Authors: Abrar Zahin, Christie Leung
 Date: 2020/02/05
 '''
 import RPi.GPIO as gpio
+import time
 
 def init(): # initializing method
     gpio.setmode(gpio.BOARD)
@@ -19,7 +20,7 @@ def init(): # initializing method
     gpio.setup(echo, gpio.IN)
 
     ##-- button
-    gpio.setup(button, gpio.IN, pull_up_down = gpio.PUD_DOWN)
+    gpio.setup(button, gpio.IN, pull_up_down = gpio.PUD_UP)
 
     ##== line sensor
     gpio.setup(lineL, gpio.IN)
@@ -68,8 +69,9 @@ def distance(speed):
 
 ##--== Button code ==--##
 def mode(m):
-    if gpio.input(button) == True:
+    if gpio.input(button) == False and m == 0:
         m += 1
+        time.sleep(0.7)
         if m > 1:
             m = 0
     return m
@@ -118,6 +120,7 @@ fr.start(speed)
 bl.start(speed)
 br.start(speed)
 
+'''
 ##--== Running the code ==--##
 while True:
     init()
@@ -136,3 +139,14 @@ while True:
         br.ChangeDutyCycle(speed)
         auto(m)
     gpio.cleanup()
+    '''
+
+while True:
+    try:
+        gpio.setmode(gpio.BOARD)
+        gpio.setup(button, gpio.IN, pull_up_down = gpio.PUD_UP)
+        if gpio.input(button) == False:
+            print('beep')
+            time.sleep(0.7)
+    finally:
+        gpio.cleanup()
